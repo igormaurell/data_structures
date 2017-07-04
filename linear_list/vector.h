@@ -1,11 +1,12 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef VECTOR_H
+#define VECTOR_H
 #include <iostream>
 
 using namespace std;
 
+namespace aedds{
 template <class Node> 
-class List{
+class Vector{
 	private:
 		Node *nodes;
 	
@@ -44,10 +45,10 @@ class List{
         }
 		
 	public:
-		List(): s(-1), e(-1), length(10){
+		Vector(): s(-1), e(-1), length(10){
 	        nodes = new Node[length];
         }
-		List(int _len): s(-1), e(-1), length(_len){
+		Vector(int _len): s(-1), e(-1), length(_len){
 	        nodes = new Node[length];
         }
 		
@@ -123,7 +124,7 @@ class List{
 
 		
 		//List subList(int _p, int _l);
-		friend ostream& operator<<(ostream& _out, List<Node> _l){
+		friend ostream& operator<<(ostream& _out, Vector<Node> _l){
 	        _out<<'[';
 	        for(int i = _l.s;i<=_l.e && _l.s!=-1;i++){
 		        if(i!=_l.e)_out<<_l.nodes[i]<<", ";
@@ -133,5 +134,6 @@ class List{
 	        return _out;
         }
 };
+}
 
-#endif //LIST_H
+#endif //VECTOR_H

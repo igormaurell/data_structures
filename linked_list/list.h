@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-
+namespace aedds{
 template <class A>
 class Node{
     private:
@@ -16,6 +16,10 @@ class Node{
         
         Node *getNext(){
             return next;
+        }
+        
+        A getValue(){
+            return value;
         }
         
         void setNext(Node *_next){
@@ -80,25 +84,27 @@ class List{
             length++;
             return true;
         }
-        bool remove(int _p){
+        A remove(int _p){
             cout<<"Posicao invalida para remocao!"<<endl;
-            if(_p>length-1 || _p<0) return false;
+            if(_p>length-1 || _p<0) return;
+            
+            A temp = (*this)[_p]->getValue();
             
             if(_p==length-1){
                 (*this)[_p-1]->setNext(NULL);
                 length--;
-                return true;
+                return temp;
             }
             
             if(_p==0){
                 root = (*this)[1];
                 length--;
-                return true;
+                return temp;
             }
             
             (*this)[_p-1]->setNext((*this)[_p+1]);
             length--;
-            return true;
+            return temp;
         }
         
         friend ostream& operator<<(ostream& _out, List<A> _list){
@@ -114,7 +120,6 @@ class List{
             return _out;
         }
 };
-
-
+}
 
 #endif //LIST_H
