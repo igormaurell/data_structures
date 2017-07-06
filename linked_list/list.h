@@ -11,15 +11,15 @@ class Node{
         A value;
         Node<A> *next;
     public:
-        Node() : value(0), next(NULL){};
-        Node(A _value) : value(_value), next(NULL){};
+        Node(): value(0, 0), next(NULL){}
+        Node(A _value): value(_value), next(NULL){}
         
         Node *getNext(){
             return next;
         }
         
-        A getValue(){
-            return value;
+        A* getValue(){
+            return &value;
         }
         
         void setNext(Node *_next){
@@ -46,6 +46,7 @@ class List{
         }
         
         Node<A>* operator[] (int _p){
+            if(_p>=length || _p<0) return NULL;
             Node<A> *temp = root;
             int i = 0;
             do{
@@ -84,11 +85,14 @@ class List{
             length++;
             return true;
         }
-        A remove(int _p){
-            cout<<"Posicao invalida para remocao!"<<endl;
-            if(_p>length-1 || _p<0) return;
+
+        A* remove(int _p){
+            if(_p>length-1 || _p<0){
+                cout<<"Posicao invalida para remocao!"<<endl;
+                return NULL;
+            } 
             
-            A temp = (*this)[_p]->getValue();
+            A* temp = (*this)[_p]->getValue();
             
             if(_p==length-1){
                 (*this)[_p-1]->setNext(NULL);
