@@ -1,5 +1,6 @@
 #ifndef VECTOR_H
 #define VECTOR_H
+
 #include <iostream>
 
 using namespace std;
@@ -52,8 +53,8 @@ class Vector{
 	        nodes = new Node[length];
         }
 		
-		int getLength(){
-            return length;
+		int getSize(){
+            return (e-s)+1;
         }
 		
         Node& operator[](int _p){
@@ -62,12 +63,12 @@ class Vector{
 		
 		bool insert(int _p, Node _elem){
 	        if(s==0 && e==length-1){
-	            cout<<"Lista cheia!"<<e<<endl;
+	            cout<<"Lista cheia."<<e<<endl;
 	            return false;
 	        }
 	
-	        if(_p<0 || _p>e+1){
-		        cout<<"Posicao invalida para insercao!"<<endl;
+	        if(_p<0 || _p>(e-s)+1){
+		        cout<<"Posicao invalida para insercao."<<endl;
 	            return false;
 	        }
 	
@@ -95,22 +96,22 @@ class Vector{
 	        return true;	
         }
 		
-		bool remove(int _p){
+		void remove(int _p){
             if(s==-1 && e==-1){
-	            cout<<"Lista Vazia"<<endl;
-	            return false;	
+	            cout<<"Lista Vazia."<<endl;
+	            return;	
 	        }
 	
             if(_p<0 || _p>e){
-		        cout<<"Posicao invalida para remocao!"<<endl;
-	            return false;
+		        cout<<"Posicao invalida para remocao."<<endl;
+	            return;
 	        }
 	
 	        if(s==0 && e==0){
 	            s = -1;
-	            e = -1;
+				e = -1;
 	            nodes[0] = Node();
-	            return true;
+	            return;
 	        }
 	
 	        if(_p-s<e-_p){
@@ -118,12 +119,9 @@ class Vector{
 	        }
 	        else{
 	            move_left_r(_p);
-	        }
-	        return true;	
+			}
         }
 
-		
-		//List subList(int _p, int _l);
 		friend ostream& operator<<(ostream& _out, Vector<Node> _l){
 	        _out<<'[';
 	        for(int i = _l.s;i<=_l.e && _l.s!=-1;i++){
