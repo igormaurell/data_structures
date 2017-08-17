@@ -4,6 +4,7 @@
 #include "stack/stack.h"
 #include "linear_queue/linear_queue.h"
 #include "queue/queue.h"
+#include "bst/bst.h"
 
 #include "nodes/point2d.h"
 
@@ -17,6 +18,7 @@ int main(){
     Stack<Point2D> stack;
     LinearQueue<Point2D> linear_queue;
     Queue<Point2D> queue;
+    Bst<int> bst;
     
     vector.insert(0, p1);
     vector.insert(1, p2);
