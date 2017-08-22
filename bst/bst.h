@@ -29,24 +29,31 @@ class Node{
         void setLeft(Node<A>* _left){
             left = _left;
         }
-        void setLeft(A _keyleft){
-            left = new Node<A>(_keyleft);
-        }
         void setRight(Node<A>* _right){
             right = _right;
         }
-        void setLeft(A _keyright){
-            right = new Node<A>(_keyright);
+        void setKey(A _key){
+            key = _key;
         }
-        
+             
         friend ostream& operator<<(ostream& _out, Node<A> _node){
-            _out<<_node.getKey();
+            if(_node.left==NULL)
+                _out<<"(NULL)---(";
+            else
+                _out<<'('<<_node.left->getKey()<<")---(";
+                
+                _out<<_node.getKey();
+                
+            if(_node.right==NULL)
+                _out<<")---(NULL)";
+            else
+                _out<<")---("<<_node.right->getKey()<<')';
             return _out;
         }
 };
 
 template <class A>
-class Bst{
+class Bst{         
     private:
         Node<A>* root;
               
@@ -54,21 +61,73 @@ class Bst{
         Bst(): root(NULL) {}
         Bst(A _keyroot): root(new Node<A>(_keyroot)) {}
         void insertUtil(Node<A>* _node, A _key){
-            if(_node==NULL){
-                _node = Node<A>(_key);
-                return;
-            }        
-        
-            if(_key>root->getKey()) insertUtil(root->getRight(), _key);
-            else if(_key<root->getKey()) insertUtil(root->getLeft(), _key);
+            if(_key>_node->getKey()){
+                if(_node->getRight()==NULL){
+                    _node->setRight(new Node<A>(_key));
+                }
+                else insertUtil(_node->getRight(), _key);
+            }
+            else if(_key<_node->getKey()){
+                if(_node->getLeft()==NULL){
+                    _node->setLeft(new Node<A>(_key));
+                }
+                else insertUtil(_node->getLeft(), _key);
+            }
             else{
                 cout<<"Valor ja existe na Bst."<<endl;
                 return;
             } 
         }
         void insert(A _key){
-            insertUtil(root, _key);
-        }       
+            if(root==NULL) root = new Node<A>(_key);
+            else insertUtil(root, _key);
+        }
+        
+        Node<A>* searchUtil(Node<A> *_node, A _key){
+            if(_node==NULL) return NULL;
+            if(_key>_node->getKey()){
+                return searchUtil(_node->getRight(), _key);
+            }
+            else if(_key<_node->getKey()){
+                return searchUtil(_node->getLeft(), _key);
+            }
+            else{
+                return _node;
+            }
+        }
+        Node<A>* search(A _key){
+            return searchUtil(root, _key);
+        }
+        
+        
+        Node<A>* minValueNode(Node<A>* _root){
+            if(_root==NULL) return NULL;
+            
+            Node<A>* temp;
+            temp = minValueNode(_root->getLeft());
+            if(temp==NULL) return _root;
+            return temp;
+        }
+        void remove(A _key){
+            Node<A> *del, *ch;
+            del = search(_key);
+            if(del==NULL) return;
+            
+            ch = del->getRight();
+            ch = minValueNode(ch);
+            if(ch==NULL){
+                ch = del->getLeft();
+                if(ch==NULL){
+                    del = NULL;
+                    return;
+                }  
+                del->setKey(ch->getKey());
+                del->setLeft(NULL);                  
+            }
+            
+            del->setKey(ch->getKey());
+            del->setRight(NULL); 
+        }
 };
 }
 

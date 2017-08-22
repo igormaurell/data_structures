@@ -56,5 +56,19 @@ int main(){
     queue.push(p4);
     queue.push(p1);
     cout<<queue<<endl;
+    
+    bst.insert(10);
+    bst.insert(15);
+    bst.insert(6);
+    bst.insert(14);
+    bst.insert(21);
+    bst.insert(13);
+    bst.remove(15);
+    bst.remove(14);
+    
+    cout<<*(bst.search(10))<<endl;
+    cout<<*(bst.search(6))<<endl;
+    cout<<*(bst.search(21))<<endl;
+    cout<<*(bst.search(13))<<endl;
 
 }
