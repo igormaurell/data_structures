@@ -4,8 +4,9 @@
 #include "stack/stack.h"
 #include "linear_queue/linear_queue.h"
 #include "queue/queue.h"
-#include "bst/bst.h"
-#include "rbtree/rbtree.h"
+//#include "bst/bst.h"
+//#include "rbtree/rbtree.h"
+#include "avl/avl.h"
 
 #include "nodes/point2d.h"
 
@@ -20,7 +21,8 @@ int main(){
     LinearQueue<Point2D> linear_queue;
     Queue<Point2D> queue;
     Bst<int> bst;*/
-    RBTree<int> tree;
+    //RBTree<int> tree;
+    Avl<int> tree;
     
     /*vector.insert(0, p1);
     vector.insert(1, p2);
@@ -81,6 +83,7 @@ int main(){
     tree.insert(25);
     tree.insert(10);
     tree.insert(30);
+    tree.insert(13);
     cout<<tree<<endl;
-
+    
 }

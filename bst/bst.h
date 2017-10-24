@@ -128,6 +128,16 @@ class Bst{
             del->setKey(ch->getKey());
             del->setRight(NULL); 
         }
+        void printByDfs(Node<A>* _node, ostream& _out) {
+            _out<<*(_node)<<endl;
+            if(_node->getLeft() != NULL) printByDfs(_node->getLeft(), _out);
+            if(_node->getRight() != NULL) printByDfs(_node->getRight(), _out);
+        }
+
+        friend ostream& operator<< (ostream& _out, Bst<A> _tree) {
+            _tree.printByDfs(_tree.root, _out);
+            return _out;
+        } 
 };
 }
 
